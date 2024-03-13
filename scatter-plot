@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
+data_matrix = np.array([(2, 1), (3, 4), (5, 0), (7, 6), (9, 2)])
+
+mean = np.mean(data_matrix, axis=0)
+std_dev = np.std(data_matrix, axis=0)
+standardized_data = (data_matrix - mean) / std_dev
+
+pca = PCA(n_components=2)
+transformed_data = pca.fit_transform(standardized_data)
+
+plt.subplot(1, 2, 1)
+plt.scatter(data_matrix[:, 0], data_matrix[:, 1], c='blue', marker='o')
+plt.title('Original Domain')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+
+plt.subplot(1, 2, 2)
+plt.scatter(transformed_data[:, 0], transformed_data[:, 1], c='red', marker='o')
+plt.title('Transformed Domain (PCA)')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+
+plt.tight_layout()
+plt.show()
